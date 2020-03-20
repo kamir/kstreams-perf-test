@@ -59,9 +59,11 @@ Open a new terminal window and generate random messages to simulate producer loa
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-producer-perf-test --throughput 500 --num-records 100000000 --topic demo-perf-topic --record-size 100 --producer-props bootstrap.servers=localhost:9092'
 ```
 
-Consumes random messages
-Open a new terminal window and generate random messages to simulate consumer load.
+### Process random messages using a KStreams-Application
 
+Open a new terminal window and start the streaming application.
+
+```
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-consumer-perf-test --messages 100000000 --threads 1 --topi
-
+```
 
