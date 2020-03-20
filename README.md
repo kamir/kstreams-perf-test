@@ -1,6 +1,10 @@
 # kstreams-perf-test
 Performance testing for KStreamsApplications.
 
+<a href="https://codeclimate.com/github/purbon/kafka-topology-builder/maintainability"><img src="https://api.codeclimate.com/v1/badges/ef4bcda7d1b5fd0a4f1e/maintainability" /></a>
+
+[![Build Status](https://travis-ci.org/purbon/kafka-topology-builder.svg?branch=master)](https://travis-ci.org/purbon/kafka-topology-builder)
+
 ## Quick-Start - using Confluent Platform locally installed
 
 ### Prerequisites:
