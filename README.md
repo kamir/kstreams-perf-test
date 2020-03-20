@@ -3,6 +3,10 @@ Performance testing for KStreamsApplications.
 
 ## Quick-Start - using Confluent Platform locally installed
 
+### Prerequisites:
++ Confluent platform is installed
++ Docker and Docker compose are installed
+
 ### Step by step approach:
 
 + start the `kafka-producer-perf` test to generate some test data into topic t1.
@@ -28,14 +32,14 @@ mvn clean compile exec:java
 + you can also specify your own arguments like this:
 
 ```
-mvn clean compile exec:java -Dexec.args="-it tt2 -ot t2REV --bootstrap.servers localhost:9092 -cg byte-reverse-app-1"
+mvn clean compile exec:java -Dexec.args="-it t1 -ot t1REV --bootstrap.servers localhost:9092 -cg byte-reverse-app-1"
 ```
 
 ### Clean-Up procedure
 
 ```
 $CONFLUENT_HOME/bin/kafka-topics --delete --topic t1 --bootstrap-server=127.0.0.1:9092
-$CONFLUENT_HOME/bin/kafka-topics --delete --topic t1REVERS --bootstrap-server=127.0.0.1:9092
+$CONFLUENT_HOME/bin/kafka-topics --delete --topic t1REV --bootstrap-server=127.0.0.1:9092
 ```
 
 ## Prepare Test-Setup with a multi node cluster
@@ -96,4 +100,30 @@ Open a new terminal window and start the streaming application.
 ```
 docker-compose exec kstreams bash -c 'KAFKA_OPTS="" java -jar kstreams-perf-test-1.0-SNAPSHOT-jar-with-dependencies.jar -it demo-perf-topic -ot demo-perf-topic-REVERSE --bootstrap.servers kafka-1:9092 -cg byte-reverse-app-1'
 ```
+
+## Run a KStreams-Example Applications
+All commands have to be executed in your `docker-compose project folder.
+
+The next four commands can be executed in a sequence:
+```
+docker-compose exec kstreams-1 bash -c 'KAFKA_OPTS="" ls'
+docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 1 --replication-factor 1 --topic PageViews --zookeeper zookeeper-1:2181'
+docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 1 --replication-factor 1 --topic UserProfiles --zookeeper zookeeper-1:2181'
+docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 1 --replication-factor 1 --topic PageViewsByRegion --zookeeper zookeeper-1:2181'
+```
+Now, we have to work in three parallel terminal windows:
+```
+docker-compose exec kstreams-1 bash -c 'KAFKA_OPTS="" java -cp ./kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionLambdaExample kafka-1:9092 http://schema-registry:8081'
+docker-compose exec kstreams-1 bash -c 'KAFKA_OPTS="" java -cp ./kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionExampleDriver kafka-1:9092 http://schema-registry:8081'
+docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-console-consumer --topic PageViewsByRegion --from-beginning --bootstrap-server kafka-1:9092 --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer'
+```
+
+
+
+
+ 
+
+
+
+
 

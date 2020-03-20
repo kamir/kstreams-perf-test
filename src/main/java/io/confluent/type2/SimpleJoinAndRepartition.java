@@ -14,13 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.confluent;
+package io.confluent.type2;
 
+import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
+import io.confluent.type1.ReverseString;
+import org.apache.avro.generic.GenericRecord;
 import org.apache.commons.cli.*;
+import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.*;
+import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KeyValueMapper;
 
+import java.util.Collections;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 
@@ -31,15 +37,22 @@ import java.util.concurrent.CountDownLatch;
  * the code split each text line in string into words and then write back into a sink topic "streams-linesplit-output" where
  * each record represents a single word.
  */
-public class ByteLevelReverse {
+public class SimpleJoinAndRepartition {
 
     public static void main(String[] args) throws Exception {
 
         Options options = new Options();
-        options.addOption(Option.builder("it")
-                .longOpt("inputTopic")
+        options.addOption(Option.builder("it1")
+                .longOpt("inputTopic1")
                 .hasArg(true)
-                .desc("input topic ... the topic from which data is loaded [REQUIRED]")
+                .desc("input topic 1 ... the topic from which data is loaded [REQUIRED]")
+                .required(true)
+                .build());
+
+        options.addOption(Option.builder("it2")
+                .longOpt("inputTopic2")
+                .hasArg(true)
+                .desc("input topic 2 ... the topic from which data is loaded [REQUIRED]")
                 .required(true)
                 .build());
 
@@ -79,9 +92,13 @@ public class ByteLevelReverse {
 
             cmd = parser.parse(options, args);
 
-            if (cmd.hasOption("it")) {
-                it = cmd.getOptionValue("it");
-                System.out.println("--inputTopic option = " + it);
+            if (cmd.hasOption("it1")) {
+                it = cmd.getOptionValue("it1");
+                System.out.println("--inputTopic 1 option = " + it);
+            }
+            if (cmd.hasOption("it2")) {
+                it = cmd.getOptionValue("it2");
+                System.out.println("--inputTopic 2 option = " + it);
             }
             if (cmd.hasOption("ot")) {
                 ot = cmd.getOptionValue("ot");
@@ -96,7 +113,6 @@ public class ByteLevelReverse {
                 System.out.println("--client_id option = " + client_id);
             }
 
-
         }
         catch (ParseException pe) {
             System.out.println("Error parsing command-line arguments!");
@@ -110,7 +126,7 @@ public class ByteLevelReverse {
 
         Properties props = new Properties();
 
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "streams-byte-reverse");
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "streams-join-type2");
 
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bss);
         props.put(StreamsConfig.CLIENT_ID_CONFIG, client_id);
@@ -118,17 +134,11 @@ public class ByteLevelReverse {
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 
+        StreamsBuilder builder = new StreamsBuilder();
 
-        final StreamsBuilder builder = new StreamsBuilder();
 
-        builder.<String, String>stream( it )
-            .map(new KeyValueMapper<String, String, KeyValue<?, ?>>() {
-                @Override
-                public KeyValue<?, ?> apply(String key, String value) {
-                    return new KeyValue( key, ReverseString.process(value) );
-                }
-            })
-            .to( ot );
+
+
 
         final Topology topology = builder.build();
         final KafkaStreams streams = new KafkaStreams(topology, props);

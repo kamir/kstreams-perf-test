@@ -1,4 +1,4 @@
-package io.confluent;
+package io.confluent.type1;
 
 public class ReverseString
 {

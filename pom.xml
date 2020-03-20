@@ -76,7 +76,7 @@
                             <manifest>
                                 <addClasspath>true</addClasspath>
                                 <classpathPrefix>lib/</classpathPrefix>
-                                <mainClass>io.confluent.ByteLevelReverse</mainClass>
+                                <mainClass>io.confluent.type1.ByteLevelReverse</mainClass>
                             </manifest>
                         </archive>
                     </configuration>
@@ -89,7 +89,7 @@
                         <appendAssemblyId>true</appendAssemblyId>
                         <archive>
                             <manifest>
-                                <mainClass>io.confluent.ByteLevelReverse</mainClass>
+                                <mainClass>io.confluent.type1.ByteLevelReverse</mainClass>
                             </manifest>
                         </archive>
                         <descriptorRefs>
@@ -118,7 +118,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <mainClass>io.confluent.ByteLevelReverse</mainClass>
+                        <mainClass>io.confluent.type1.ByteLevelReverse</mainClass>
                         <arguments>
                             <argument>-it</argument>
                             <argument>t1</argument>
