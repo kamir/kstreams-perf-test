@@ -38,4 +38,30 @@ $CONFLUENT_HOME/bin/kafka-topics --delete --topic t1 --bootstrap-server=127.0.0.
 $CONFLUENT_HOME/bin/kafka-topics --delete --topic t1REVERS --bootstrap-server=127.0.0.1:9092
 ```
 
+## Prepare Test-Setup
+
+The project `https://github.com/jeanlouisboudart/kafka-platform-prometheus` contains a ready to use confluent platform 
+including Prometheus and Grafana for monitoring and metrics visualization.
+
+Please follow the guide in this project to prepare your setup, in case you want to practice the procedure with a dedicated Confluent platform. 
+
+## Run Benchmark in Test-Cluster using Docker-Compose
+
+### Create a topic for test data
+Create demo-perf-t1 with 4 partitions and 3 replicas.
+``` 
+docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 4 --replication-factor 3 --topic demo-perf-topic --zookeeper zookeeper-1:2181'
+```
+
+### Produce random messages into topic _demo-perf-t1_
+Open a new terminal window and generate random messages to simulate producer load.
+```
+docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-producer-perf-test --throughput 500 --num-records 100000000 --topic demo-perf-topic --record-size 100 --producer-props bootstrap.servers=localhost:9092'
+```
+
+Consumes random messages
+Open a new terminal window and generate random messages to simulate consumer load.
+
+docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-consumer-perf-test --messages 100000000 --threads 1 --topi
+
 
