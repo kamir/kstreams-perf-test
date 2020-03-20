@@ -1,5 +1,5 @@
 # kstreams-perf-test
-Performance testing for KStreamsApplications.
+Performance analysis for KStreamsApplications.
 
 
 <a href="https://codeclimate.com/github/kamir/kstreams-perf-test"><img src="https://api.codeclimate.com/v1/badges/ef4bcda7d1b5fd0a4f1e/maintainability" /></a>
