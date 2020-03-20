@@ -14,10 +14,16 @@ $CONFLUENT_HOME/bin/kafka-producer-perf-test --topic t1 --num-records 10 --recor
 ```
 In case you are interested in metrics in deep details, please append the argument `--print-metrics`.
 
-+  start the KStreams performance testing app in this project.
++  start the KStreams performance testing app in this project, using the default settings, defined in the `pom.xml`file.
 
 ```
 mvn clean compile exec:java
+```
+
++ you can also specify your own arguments like this:
+
+```
+mvn clean compile exec:java -Dexec.args="-it tt2 -ot t2REV --bootstrap.servers localhost:9092 -cg byte-reverse-app-1"
 ```
 
 ### Clean-Up procedure
