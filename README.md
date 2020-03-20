@@ -1,7 +1,7 @@
 # kstreams-perf-test
-Performance testing for KStreamsApplications
+Performance testing for KStreamsApplications.
 
-## Quick-Start
+## Quick-Start - using Confluent Platform locally installed
 
 ### Step by step approach:
 
@@ -38,7 +38,7 @@ $CONFLUENT_HOME/bin/kafka-topics --delete --topic t1 --bootstrap-server=127.0.0.
 $CONFLUENT_HOME/bin/kafka-topics --delete --topic t1REVERS --bootstrap-server=127.0.0.1:9092
 ```
 
-## Prepare Test-Setup
+## Prepare Test-Setup with a multi node cluster
 
 The project `https://github.com/jeanlouisboudart/kafka-platform-prometheus` contains a ready to use confluent platform 
 including Prometheus and Grafana for monitoring and metrics visualization.
@@ -76,25 +76,25 @@ Now, append the following snippet to the existing file `kafka-platform-prometheu
 ```
 
 Finally, stop the KStreams application which 
-## Run Benchmark in the Test-Cluster using Docker-Compose
+### Run Benchmark in the Test-Cluster using Docker-Compose
 
-### Create a topic for test data
+#### Create a topic for test data
 Create the `demo-perf-topic` and `demo-perf-topic-REVERSE` with 4 partitions and 3 replicas.
 ``` 
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 4 --replication-factor 3 --topic demo-perf-topic --zookeeper zookeeper-1:2181'
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 4 --replication-factor 3 --topic demo-perf-topic-REVERSE --zookeeper zookeeper-1:2181'
 ```
 
-### Produce random messages into topic _demo-perf-t1_
+#### Produce random messages into topic _demo-perf-t1_
 Open a new terminal window (in the same folder where the `docker-compose.yml` is located) and generate random messages to simulate producer load.
 ```
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-producer-perf-test --throughput -1 --num-records 10000000 --topic demo-perf-topic --record-size 160 --producer-props acks=1 buffer.memory=67108864 batch.size=8196 bootstrap.servers=kafka-1:9092'
 ```
 
 
-### Process random messages using a KStreams-Application
+#### Process random messages using a KStreams-Application
 Open a new terminal window and start the streaming application.
 ```
-docker-compose exec kstreams bash -c 'KAFKA_OPTS="" java -jar kstreams-perf-test-1.0-SNAPSHOT-jar-with-dependencies.jar -it demo-perf-topic -ot demo-perf-topic-REVERSE --bootstrap.servers localhost:9092 -cg byte-reverse-app-1'
+docker-compose exec kstreams bash -c 'KAFKA_OPTS="" java -jar kstreams-perf-test-1.0-SNAPSHOT-jar-with-dependencies.jar -it demo-perf-topic -ot demo-perf-topic-REVERSE --bootstrap.servers kafka-1:9092 -cg byte-reverse-app-1'
 ```
 
