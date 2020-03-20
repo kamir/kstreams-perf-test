@@ -51,7 +51,7 @@ public class ByteLevelReverse {
                 .desc("output topic ... the topic to which result data is written [REQUIRED]")
                 .required(true)
                 .build());
-/*
+
         options.addOption(Option.builder("cg")
                 .longOpt("consumer-group")
                 .hasArg(true)
@@ -60,12 +60,12 @@ public class ByteLevelReverse {
                 .build());
 
         options.addOption(Option.builder("bss")
-                .longOpt("bbotstrap.servers")
+                .longOpt("bootstrap.servers")
                 .hasArg(true)
                 .desc("the Kafka bootstrap.servers ... [REQUIRED]")
                 .required(true)
                 .build());
-*/
+
 
         CommandLineParser parser = new DefaultParser();
 
@@ -89,6 +89,16 @@ public class ByteLevelReverse {
                 ot = cmd.getOptionValue("ot");
                 System.out.println("--outputTopic option = " + ot);
             }
+            if (cmd.hasOption("bss")) {
+                bss = cmd.getOptionValue("bss");
+                System.out.println("--bootstrap.servers option = " + bss);
+            }
+            if (cmd.hasOption("cg")) {
+                client_id = cmd.getOptionValue("cg");
+                System.out.println("--client_id option = " + client_id);
+            }
+
+
         }
         catch (ParseException pe) {
             System.out.println("Error parsing command-line arguments!");

@@ -125,6 +125,10 @@
                             <argument>t1</argument>
                             <argument>-ot</argument>
                             <argument>t1REVERS</argument>
+                            <argument>--bootstrap.servers</argument>
+                            <argument>localhost:9092</argument>
+                            <argument>-cg</argument>
+                            <argument>byte-reverse-app-1</argument>
                         </arguments>
                     </configuration>
                 </plugin>

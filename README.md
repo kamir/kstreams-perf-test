@@ -24,7 +24,7 @@ mvn clean compile exec:java
 
 ```
 $CONFLUENT_HOME/bin/kafka-topics --delete --topic t1 --bootstrap-server=127.0.0.1:9092
-$CONFLUENT_HOME/bin/kafka-topics --delete --topic t1REVERSE --bootstrap-server=127.0.0.1:9092
+$CONFLUENT_HOME/bin/kafka-topics --delete --topic t1REVERS --bootstrap-server=127.0.0.1:9092
 ```
 
 
