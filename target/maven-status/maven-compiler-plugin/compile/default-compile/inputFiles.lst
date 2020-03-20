@@ -1,2 +1,2 @@
-/Users/mkampf/GITHUB.confluent/kstreams-perf-test/src/main/java/confluent/io/ByteLevelReverse.java
-/Users/mkampf/GITHUB.confluent/kstreams-perf-test/src/main/java/confluent/io/ReverseString.java
+/Users/mkampf/GITHUB.confluent/kstreams-perf-test/src/main/java/io/confluent/ByteLevelReverse.java
+/Users/mkampf/GITHUB.confluent/kstreams-perf-test/src/main/java/io/confluent/ReverseString.java

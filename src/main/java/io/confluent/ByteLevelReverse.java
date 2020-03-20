@@ -14,15 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package confluent.io;
+package io.confluent;
 
 import org.apache.commons.cli.*;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.*;
 import org.apache.kafka.streams.kstream.KeyValueMapper;
-import org.apache.kafka.streams.kstream.ValueMapper;
 
-import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 

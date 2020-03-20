@@ -45,25 +45,56 @@ including Prometheus and Grafana for monitoring and metrics visualization.
 
 Please follow the guide in this project to prepare your setup, in case you want to practice the procedure with a dedicated Confluent platform. 
 
-## Run Benchmark in Test-Cluster using Docker-Compose
+In order to integrate the KStreams performance test app, we have to modify the docker-compose file.
+
+### Add a demo workload
+
+First, build the project locally and create the container.
+
+```
+mvn clean compile assembly:single
+docker build . -t kstreams-perf-test-app
+```
+
+Now, append the following snippet to the existing file `kafka-platform-prometheus/docker-compose.yml`.
+
+```
+  #
+  #  Example workload for KStreams
+  #
+  kstreams:
+    image: kstreams-perf-test-app
+    environment:
+      JAVA_OPTS: -javaagent:/usr/share/jmx_exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx_exporter/kafka-producer.yml -Xmx256M -Xms256M
+    volumes:
+      - jmx-exporter-vol:/usr/share/jmx_exporter/
+    depends_on:
+      - jmx-exporter
+      - kafka-1
+      - kafka-2
+      - kafka-3
+```
+
+Finally, stop the KStreams application which 
+## Run Benchmark in the Test-Cluster using Docker-Compose
 
 ### Create a topic for test data
-Create demo-perf-t1 with 4 partitions and 3 replicas.
+Create the `demo-perf-topic` and `demo-perf-topic-REVERSE` with 4 partitions and 3 replicas.
 ``` 
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 4 --replication-factor 3 --topic demo-perf-topic --zookeeper zookeeper-1:2181'
+docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 4 --replication-factor 3 --topic demo-perf-topic-REVERSE --zookeeper zookeeper-1:2181'
 ```
 
 ### Produce random messages into topic _demo-perf-t1_
-Open a new terminal window and generate random messages to simulate producer load.
+Open a new terminal window (in the same folder where the `docker-compose.yml` is located) and generate random messages to simulate producer load.
 ```
-docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-producer-perf-test --throughput 500 --num-records 100000000 --topic demo-perf-topic --record-size 100 --producer-props bootstrap.servers=localhost:9092'
+docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-producer-perf-test --throughput -1 --num-records 10000000 --topic demo-perf-topic --record-size 160 --producer-props acks=1 buffer.memory=67108864 batch.size=8196 bootstrap.servers=kafka-1:9092'
 ```
+
 
 ### Process random messages using a KStreams-Application
-
 Open a new terminal window and start the streaming application.
-
 ```
-docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-consumer-perf-test --messages 100000000 --threads 1 --topi
+docker-compose exec kstreams bash -c 'KAFKA_OPTS="" java -jar kstreams-perf-test-1.0-SNAPSHOT-jar-with-dependencies.jar -it demo-perf-topic -ot demo-perf-topic-REVERSE --bootstrap.servers localhost:9092 -cg byte-reverse-app-1'
 ```
 
