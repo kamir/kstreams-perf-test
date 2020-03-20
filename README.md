@@ -102,7 +102,7 @@ docker-compose exec kstreams bash -c 'KAFKA_OPTS="" java -jar kstreams-perf-test
 ```
 
 ## Run a KStreams-Example Applications
-All commands have to be executed in your `docker-compose project folder.
+All following commands have to be executed in your `docker-compose` project folder.
 
 The next four commands can be executed in a sequence:
 ```
