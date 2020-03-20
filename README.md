@@ -85,12 +85,11 @@ docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --parti
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 4 --replication-factor 3 --topic demo-perf-topic-REVERSE --zookeeper zookeeper-1:2181'
 ```
 
-#### Produce random messages into topic _demo-perf-t1_
+#### Produce random messages into topic _demo-perf-topic_
 Open a new terminal window (in the same folder where the `docker-compose.yml` is located) and generate random messages to simulate producer load.
 ```
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-producer-perf-test --throughput -1 --num-records 10000000 --topic demo-perf-topic --record-size 160 --producer-props acks=1 buffer.memory=67108864 batch.size=8196 bootstrap.servers=kafka-1:9092'
 ```
-
 
 #### Process random messages using a KStreams-Application
 Open a new terminal window and start the streaming application.
