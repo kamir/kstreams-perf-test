@@ -184,7 +184,7 @@ Open a new terminal window and start the streaming application.
 docker-compose exec kstreams bash -c 'KAFKA_OPTS="" java -jar kstreams-perf-test-1.0-SNAPSHOT-jar-with-dependencies.jar -it demo-perf-topic -ot demo-perf-topic-REVERSE --bootstrap.servers kafka-1:9092 -cg byte-reverse-app-1'
 ```
 
-## Run a KStreams-Example Applications
+## Run a KStreams-Example Application
 The following commands have to be executed in your `docker-compose` project folder from which the Confluent Platform has been started.
 
 The next four commands can be executed in a sequence:
