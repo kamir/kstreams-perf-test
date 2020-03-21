@@ -38,12 +38,12 @@ These tools can be used together to answer the questions above.
 
 | Property  | Purpose  | Value  |
 |---|---|---|
-| CPU / Threads  | enable parallelity over partitions  |   |
+| CPU / threads  | enable parallelity over partitions  |   |
 | memory footprint | to store processing state, <br/>to hold side data like lookup tables, <br/>to store models in ML apps  |   |   |   |
-| read throughput for loading input data  | permanently, depending on source data ingestion rate  |   |
+| read throughput <br/>for loading input data  | permanently, depending on source data ingestion rate  |   |
 | write throughput  | for results - permanently according to input rate   |   |
-| read throughput for state  | on restart / failover  |   |
-| write throughput for state  | on state commit  |   |
+| read throughput <br/>for state  | on restart / failover  |   |
+| write throughput <br/>for state  | on state commit  |   |
 
 ## Procedure
 
