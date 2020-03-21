@@ -28,7 +28,19 @@ This projects provides example programs, reference workloads, and a systematic a
 We define workload types and workload profiles to describe the conditions of a particular KStreams program.
 These tools can be used together to answer the questions above.
 
+---
+Table of Contents
+
+* [Concepts](#Concepts)
+    * [Cluster Profile](#Cluster-Profile)
+    * [Workload Profile](#Workload-Profile)
+ ---
+
+<a name="Concepts"/>
+
 ## Concepts
+
+<a name="Cluster-Profile"/>
 
 ### Cluster Profile
 The [Confluent performance tuning whitepaper](https://www.confluent.io/white-paper/optimizing-your-apache-kafka-deployment/) explains which settings influence which aspects in an Apache Kafka cluster. Some settings are applied on a cluster wide level, others are per consumer / producer or even per topic.
@@ -38,6 +50,8 @@ Only in cases where your cluster is used for one single use case, which is imple
 The majority of installations is either created for mixed workloads or as multi-tennant environments. In this case, we have to look into cluster profile and workload profiles on an individual level.
 
 This [worksheet](tools/workbook_010.xlsx) allows tracking of cluster wide settings over time.
+
+<a name="Workload-Profile"/>
 
 ### Workload Profile
 A workload profile is a structured description of a workload. It provides a set of measures, such as required read bandwidth, memory footprint, write bandwidth for results and intermediate data. Also rather static resources, such as CPU and RAM are relevant for workload profiles - because workload scheduling and workload placement decisions depend on them.
@@ -228,9 +242,9 @@ ccloud kafka topic delete demo-perf-topic-REVERSE
 
 #### Create a `client.properties` file
 Go to your confluent cloud web interface and copy the client configuration file.
-We need this file locally in our working directory for following steps.
+We need this file locally in our working directory for the following steps.
 
-Please use the filename `ccloud.props` it will be excluded from the GitHub repository.
+Please use the filename `ccloud.props` because then it will be excluded from the GitHub repository which is the secure option.
 
 ```
 # Kafka
@@ -271,18 +285,17 @@ KAFKA_OPTS="" java -jar target/kstreams-perf-test-1.0-SNAPSHOT-jar-with-dependen
 Next, we want to run the KStreams applications also against out Confluent Cloud cluster.
 
 #### Run a KStreams-Example Applications with Confluent Cloud
-The following commands have to be executed in your `docker-compose` project folder from which the Confluent Platform has been started.
-
-The next four commands can be executed in a sequence:
+We prepare the topics using the following commands:
 ```
-docker-compose exec kstreams-1 bash -c 'KAFKA_OPTS="" ls'
-docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 1 --replication-factor 1 --topic PageViews --zookeeper zookeeper-1:2181'
-docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 1 --replication-factor 1 --topic UserProfiles --zookeeper zookeeper-1:2181'
-docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 1 --replication-factor 1 --topic PageViewsByRegion --zookeeper zookeeper-1:2181'
+ccloud kafka topic create PageViews --partitions 6
+ccloud kafka topic create UserProfiles --partitions 6
+ccloud kafka topic create PageViewsByRegion --partitions 6
+```
+
 ```
 Now, we have to work in three parallel terminal windows:
 ```
-docker-compose exec kstreams-1 bash -c 'KAFKA_OPTS="" java -cp ./kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionLambdaExample kafka-1:9092 http://schema-registry:8081'
-docker-compose exec kstreams-1 bash -c 'KAFKA_OPTS="" java -cp ./kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionExampleDriver kafka-1:9092 http://schema-registry:8081'
-docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-console-consumer --topic PageViewsByRegion --from-beginning --bootstrap-server kafka-1:9092 --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer'
+KAFKA_OPTS="" java -cp ./lib/kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionLambdaExample pkc-43n10.us-central1.gcp.confluent.cloud:9092 https://psrc-4v1qj.eu-central-1.aws.confluent.cloud
+KAFKA_OPTS="" java -cp ./lib/kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionExampleDriver pkc-43n10.us-central1.gcp.confluent.cloud:9092 https://psrc-4v1qj.eu-central-1.aws.confluent.cloud
+KAFKA_OPTS="" $CONFLUENT_HOME/bin/kafka-console-consumer --topic PageViewsByRegion --from-beginning --bootstrap-server pkc-43n10.us-central1.gcp.confluent.cloud:9092 --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
 ```
