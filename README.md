@@ -33,6 +33,7 @@ These tools can be used together to answer the questions above.
 
 
 ### Workload Profile
+A workload profile is a structured description of a workload. It provides a set of measures, such as required read bandwidth, memory footprint, write bandwidth for results and intermediate data. Also rather static resources, such as CPU and RAM are relevant for workload profiles - because workload scheduling and workload placement decisions depend on them. 
 
 **Workload Profile for KStreams Application:**  *ByteLevelReverse* (type 1)
 
