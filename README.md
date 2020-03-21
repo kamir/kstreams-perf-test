@@ -30,7 +30,13 @@ These tools can be used together to answer the questions above.
 ## Concepts
 
 ### Cluster Profile
+The [Confluent performance tuning whitepaper](https://www.confluent.io/white-paper/optimizing-your-apache-kafka-deployment/) explains which settings influence which aspects in an Apache Kafka cluster. Some settings are applied on a cluster wide level, others are per consumer / producer or even per topic.
 
+Only in cases where your cluster is used for one single use case, which is implemented using a single workload type we can keep it simple and analyse the overall system as one.
+
+The majority of installations is either created for mixed workloads or as multi-tennant environments. In this case, we have to look into cluster profile and workload profiles on an individual level.
+
+This [worksheet](tools/workbook_010.xlsx) allows us track cluster wide settings.
 
 ### Workload Profile
 A workload profile is a structured description of a workload. It provides a set of measures, such as required read bandwidth, memory footprint, write bandwidth for results and intermediate data. Also rather static resources, such as CPU and RAM are relevant for workload profiles - because workload scheduling and workload placement decisions depend on them. 
