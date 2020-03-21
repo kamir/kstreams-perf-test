@@ -8,9 +8,9 @@ Because KStreams applications have to perform well, we need a way to measure how
 We have to understand what influences a particular application. 
 Furthermore we should be able to know the impact of our application on other applications or the entire cluster.
 
-Many well written tutorials and example projects can support you already while you are *learning to write efficient KStreams applications*.
+Many well written tutorials and example projects can support you already while you are _learning to write efficient KStreams applications_.
 
-*Monitoring Kafka* is a critical skill and also a very present topic at many conferences.
+_Monitoring Kafka_ is a critical skill and also a very present topic at many conferences.
 
 Assuming we are able to develop KStreams applications, and assuming we ar able to monitor the clusters in which they run, than
 we can go further and start asking:
