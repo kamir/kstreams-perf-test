@@ -4,8 +4,13 @@ Performance analysis for KStreamsApplications.
 <a href="https://codeclimate.com/github/kamir/kstreams-perf-test"><img src="https://api.codeclimate.com/v1/badges/ef4bcda7d1b5fd0a4f1e/maintainability" /></a> | [![Build Status](https://travis-ci.org/kamir/kstreams-perf-test.svg?branch=master)](https://travis-ci.org/kamir/kstreams-perf-test)
 
 ## Why does this project exist?
-Many tutorials and example projects support you learning to write KStreams applications.
-Monitoring Kafka is a critical skill and also a very present topic at many conferences.
+Because KStreams applications have to perform well, we need a way to measure how well they really do. 
+We have to understand what influences a particular application. 
+Furthermore we should be able to know the impact of our application on other applications or the entire cluster.
+
+Many well written tutorials and example projects can support you already while you are *learning to write efficient KStreams applications*.
+
+*Monitoring Kafka* is a critical skill and also a very present topic at many conferences.
 
 Assuming we are able to develop KStreams applications, and assuming we ar able to monitor the clusters in which they run, than
 we can go further and start asking:
@@ -15,10 +20,12 @@ we can go further and start asking:
 + What are the limits of a workload? When will it fail due resource limits?
 + What is the optimization potential for a workload in a given cluster?
 
-This projects provides example programs, reference workloads, and an analysis procedure. 
-These tools can be used together to answer the questions above. 
+This projects provides example programs, reference workloads, and a systematic analysis procedure. 
 
 ![The KStreamsApplication Flow Model](docs/intro.png)
+
+We define workload types and workload profiles to describe the conditions of a particular KStreams program.
+These tools can be used together to answer the questions above. 
 
 
 ## Quick-Start - using Confluent Platform (locally installed)
