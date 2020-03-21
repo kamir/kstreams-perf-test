@@ -63,10 +63,9 @@ Please follow the guide in this project to prepare your setup, in case you want 
 
 In order to integrate the KStreams performance test app, we have to modify the docker-compose file.
 
-### Add a demo workload
+### Prepare a demo workload container
 
-First, build the project locally and create the container.
-
+First, build the `kstreams-perf-test` project locally and create the docker image using the commands:
 ```
 mvn clean compile assembly:single
 docker build . -t kstreams-perf-test-app
@@ -76,12 +75,14 @@ Now, append the following snippet to the existing file `kafka-platform-prometheu
 
 ```
   #
-  #  Example workload for KStreams
+  #  Example workloads for KStreams performance testing
   #
-  kstreams:
+  kstreams-1:
     image: kstreams-perf-test-app
     environment:
       JAVA_OPTS: -javaagent:/usr/share/jmx_exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx_exporter/kafka-producer.yml -Xmx256M -Xms256M
+      STREAMS_SCHEMA_REGISTRY_HOST: schema-registry
+      STREAMS_SCHEMA_REGISTRY_PORT: 8081
     volumes:
       - jmx-exporter-vol:/usr/share/jmx_exporter/
     depends_on:
@@ -89,10 +90,32 @@ Now, append the following snippet to the existing file `kafka-platform-prometheu
       - kafka-1
       - kafka-2
       - kafka-3
+      - schema-registry
+  
+  #
+  # Some applications require a Schema-Registry
+  #
+  schema-registry:
+    image: confluentinc/cp-schema-registry:5.4.1
+    hostname: schema-registry
+    ports:
+      - 8081:8081
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: kafka-1:9092,kafka-2:9092,kafka-3:9092
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+      SCHEMA_REGISTRY_DEBUG: "true"
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+      - kafka-1
+      - kafka-2
+      - kafka-3
 ```
+With 'docker-compose' we can start the Confluent platform with 3 brokers. The container named *kstreams-1* contains the JAR files which define our demo workloads. 
 
-Finally, stop the KStreams application which 
-### Run Benchmark in the Test-Cluster using Docker-Compose
+### Run a Benchmark in the Test-Cluster using Docker-Compose
 
 #### Create a topic for test data
 Create the `demo-perf-topic` and `demo-perf-topic-REVERSE` with 4 partitions and 3 replicas.
@@ -114,7 +137,7 @@ docker-compose exec kstreams bash -c 'KAFKA_OPTS="" java -jar kstreams-perf-test
 ```
 
 ## Run a KStreams-Example Applications
-All following commands have to be executed in your `docker-compose` project folder.
+The following commands have to be executed in your `docker-compose` project folder from which the Confluent Platform has been started.
 
 The next four commands can be executed in a sequence:
 ```
