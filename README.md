@@ -4,7 +4,8 @@ Simplify performance analysis for KStreamsApplications.
 <a href="https://codeclimate.com/github/kamir/kstreams-perf-test"><img src="https://api.codeclimate.com/v1/badges/ef4bcda7d1b5fd0a4f1e/maintainability" /></a> | [![Build Status](https://travis-ci.org/kamir/kstreams-perf-test.svg?branch=master)](https://travis-ci.org/kamir/kstreams-perf-test)
 
 ## Why does this project exist?
-Because KStreams applications have to perform well, we need a way to measure how well they really do. 
+To make sure that your KStreams applications perform well, you need a way to measure how well they really do. 
+
 We have to understand what influences a particular application. 
 Furthermore we should be able to know the impact of our application on other applications or the entire cluster.
 
