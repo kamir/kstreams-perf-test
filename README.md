@@ -204,11 +204,15 @@ docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-console-consumer --topi
 
 ### Prerequisites:
 + Confluent cloud CLI has to be installed. You can download it [here](https://docs.confluent.io/current/cloud/cli/install.html).
++ The project has to be compiled and the UBER-JAR needs to be created.
 
-#### Create a topic for test data
-Create the `demo-perf-topic` and `demo-perf-topic-REVERSE` with 4 partitions and 3 replicas.
 ```
 mvn clean compile package install assembly:single
+```
+
+#### Create a topic for test data
+We create the `demo-perf-topic` and `demo-perf-topic-REVERSE` with 6 partitions.
+```
 ccloud login
 ccloud kafka cluster list
 ccloud kafka cluster use <<YOUR_CLUSTER_ID>>
