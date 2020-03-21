@@ -36,14 +36,14 @@ These tools can be used together to answer the questions above.
 
 **Workload Profile for KStreams Application:**  *ByteLevelReverse* (type 1)
 
-| Property  | Purpose  | Value  |   |   |
+| Property  | Purpose  | Value  |
 |---|---|---|---|---|
-| CPU / Threads  | enable parallelity over partitions  |   |   |   |
-| memory footprint | to store processing state, to hold side data like lookup tables, to store models in ML apps  |   |   |   |
-| read throughput for loading input data  | permanently, depending on source data ingestion rate  |   |   |   |
-| write throughput  | for results - permanently according to input rate   |   |   |   |
-| read throughput for state  | on restart / failover  |   |   |   |
-| write throughput for state  | on state commit  |   |   |   |
+| CPU / Threads  | enable parallelity over partitions  |   |
+| memory footprint | to store processing state, <br/>to hold side data like lookup tables, <br/>to store models in ML apps  |   |   |   |
+| read throughput for loading input data  | permanently, depending on source data ingestion rate  |   |
+| write throughput  | for results - permanently according to input rate   |   |
+| read throughput for state  | on restart / failover  |   |
+| write throughput for state  | on state commit  |   |
 
 ## Procedure
 
