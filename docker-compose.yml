@@ -222,7 +222,7 @@ services:
       - ./grafana/provisioning/:/etc/grafana/provisioning/
 
   #
-  #  Example workload for KStreams
+  #  Example workloads for KStreams performance testing
   #
   kstreams-1:
     image: kstreams-perf-test-app
@@ -239,6 +239,9 @@ services:
       - kafka-3
       - schema-registry
 
+  #
+  # Some applications require a Schema-Registry
+  #
   schema-registry:
     image: confluentinc/cp-schema-registry:5.4.1
     hostname: schema-registry
