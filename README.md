@@ -1,11 +1,12 @@
 # kstreams-perf-test
-Performance analysis for KStreamsApplications.
+Simplify performance analysis for KStreamsApplications.
 
 <a href="https://codeclimate.com/github/kamir/kstreams-perf-test"><img src="https://api.codeclimate.com/v1/badges/ef4bcda7d1b5fd0a4f1e/maintainability" /></a> | [![Build Status](https://travis-ci.org/kamir/kstreams-perf-test.svg?branch=master)](https://travis-ci.org/kamir/kstreams-perf-test)
 
 ## Why does this project exist?
-Because KStreams applications have to perform well, we need a way to measure how well they really do. 
-We have to understand what influences a particular application. 
+To make sure that your KStreams applications perform well, you need a way to measure how well they really do.
+
+We have to understand what influences a particular application.
 Furthermore we should be able to know the impact of our application on other applications or the entire cluster.
 
 Many well written tutorials and example projects can support you already while you are _learning to write efficient KStreams applications_.
@@ -16,16 +17,16 @@ Assuming we are able to develop KStreams applications, and assuming we ar able t
 we can go further and start asking:
 
 + What do we know about the behavior of a particular workload in a particular environment?
-+ How well does a workload fit into an environment? 
++ How well does a workload fit into an environment?
 + What are the limits of a workload? When will it fail due resource limits?
 + What is the optimization potential for a workload in a given cluster?
 
-This projects provides example programs, reference workloads, and a systematic analysis procedure. 
+This projects provides example programs, reference workloads, and a systematic analysis procedure.
 
 ![The KStreamsApplication Flow Model](docs/intro.png)
 
 We define workload types and workload profiles to describe the conditions of a particular KStreams program.
-These tools can be used together to answer the questions above. 
+These tools can be used together to answer the questions above.
 
 ## Concepts
 
@@ -39,7 +40,7 @@ The majority of installations is either created for mixed workloads or as multi-
 This [worksheet](tools/workbook_010.xlsx) allows tracking of cluster wide settings over time.
 
 ### Workload Profile
-A workload profile is a structured description of a workload. It provides a set of measures, such as required read bandwidth, memory footprint, write bandwidth for results and intermediate data. Also rather static resources, such as CPU and RAM are relevant for workload profiles - because workload scheduling and workload placement decisions depend on them. 
+A workload profile is a structured description of a workload. It provides a set of measures, such as required read bandwidth, memory footprint, write bandwidth for results and intermediate data. Also rather static resources, such as CPU and RAM are relevant for workload profiles - because workload scheduling and workload placement decisions depend on them.
 
 **Workload Profile for KStreams Application:**  *ByteLevelReverse* (type 1)
 
@@ -102,10 +103,10 @@ $CONFLUENT_HOME/bin/kafka-topics --delete --topic t1REV --bootstrap-server=127.0
 
 ## Prepare Test-Setup with a multi node cluster
 
-The project `https://github.com/jeanlouisboudart/kafka-platform-prometheus` contains a ready to use confluent platform 
+The project `https://github.com/jeanlouisboudart/kafka-platform-prometheus` contains a ready to use confluent platform
 including Prometheus and Grafana for monitoring and metrics visualization.
 
-Please follow the guide in this project to prepare your setup, in case you want to practice the procedure with a dedicated Confluent platform. 
+Please follow the guide in this project to prepare your setup, in case you want to practice the procedure with a dedicated Confluent platform.
 
 In order to integrate the KStreams performance test app, we have to modify the docker-compose file.
 
@@ -137,7 +138,7 @@ Now, append the following snippet to the existing file `kafka-platform-prometheu
       - kafka-2
       - kafka-3
       - schema-registry
-  
+
   #
   # Some applications require a Schema-Registry
   #
@@ -159,13 +160,13 @@ Now, append the following snippet to the existing file `kafka-platform-prometheu
       - kafka-2
       - kafka-3
 ```
-With 'docker-compose' we can start the Confluent platform with 3 brokers. The container named *kstreams-1* contains the JAR files which define our demo workloads. 
+With 'docker-compose' we can start the Confluent platform with 3 brokers. The container named *kstreams-1* contains the JAR files which define our demo workloads.
 
 ### Run a Benchmark in the Test-Cluster using Docker-Compose
 
 #### Create a topic for test data
 Create the `demo-perf-topic` and `demo-perf-topic-REVERSE` with 4 partitions and 3 replicas.
-``` 
+```
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 4 --replication-factor 3 --topic demo-perf-topic --zookeeper zookeeper-1:2181'
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 4 --replication-factor 3 --topic demo-perf-topic-REVERSE --zookeeper zookeeper-1:2181'
 ```
@@ -206,7 +207,7 @@ docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-console-consumer --topi
 
 #### Create a topic for test data
 Create the `demo-perf-topic` and `demo-perf-topic-REVERSE` with 4 partitions and 3 replicas.
-``` 
+```
 mvn clean compile package install assembly:single
 ccloud login
 ccloud kafka cluster list
@@ -223,21 +224,21 @@ ccloud kafka topic delete demo-perf-topic-REVERSE
 
 #### Create a `client.properties` file
 Go to your confluent cloud web interface and copy the client configuration file.
-We need this file locally in our working directory for following steps. 
+We need this file locally in our working directory for following steps.
 
-Please use the filename `ccloud.props` it will be excluded from the GitHub repository. 
+Please use the filename `ccloud.props` it will be excluded from the GitHub repository.
 
 ```
 # Kafka
-bootstrap.servers=pkc-43n10.us-central1.gcp.confluent.cloud:9092 
-security.protocol=SASL_SSL 
-sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule   required username="{{ CLUSTER_API_KEY }}"   password="{{ CLUSTER_API_SECRET }}"; 
-ssl.endpoint.identification.algorithm=https 
-sasl.mechanism=PLAIN 
+bootstrap.servers=pkc-43n10.us-central1.gcp.confluent.cloud:9092
+security.protocol=SASL_SSL
+sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule   required username="{{ CLUSTER_API_KEY }}"   password="{{ CLUSTER_API_SECRET }}";
+ssl.endpoint.identification.algorithm=https
+sasl.mechanism=PLAIN
 # Confluent Cloud Schema Registry
-schema.registry.url=https://psrc-4v1qj.eu-central-1.aws.confluent.cloud 
-basic.auth.credentials.source=USER_INFO 
-schema.registry.basic.auth.user.info={{ SR_API_KEY }}:{{ SR_API_SECRET }} 
+schema.registry.url=https://psrc-4v1qj.eu-central-1.aws.confluent.cloud
+basic.auth.credentials.source=USER_INFO
+schema.registry.basic.auth.user.info={{ SR_API_KEY }}:{{ SR_API_SECRET }}
 ```
 
 #### Produce random messages into topic _demo-perf-topic_
@@ -261,7 +262,7 @@ The KStreams application will be started with the following command:
 KAFKA_OPTS="" java -jar target/kstreams-perf-test-1.0-SNAPSHOT-jar-with-dependencies.jar -it demo-perf-topic -ot demo-perf-topic-REVERSE --producer.config ccloud.props -cg byte-reverse-app-1'
 ```
 
-# TODO: 
+# TODO:
 
 Next, we want to run the KStreams applications also against out Confluent Cloud cluster.
 
@@ -281,13 +282,3 @@ docker-compose exec kstreams-1 bash -c 'KAFKA_OPTS="" java -cp ./kafka-streams-e
 docker-compose exec kstreams-1 bash -c 'KAFKA_OPTS="" java -cp ./kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionExampleDriver kafka-1:9092 http://schema-registry:8081'
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-console-consumer --topic PageViewsByRegion --from-beginning --bootstrap-server kafka-1:9092 --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer'
 ```
-
-
-
-
- 
-
-
-
-
-
