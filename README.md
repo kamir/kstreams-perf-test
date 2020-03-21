@@ -287,15 +287,25 @@ Next, we want to run the KStreams applications also against out Confluent Cloud 
 #### Run a KStreams-Example Applications with Confluent Cloud
 We prepare the topics using the following commands:
 ```
-ccloud kafka topic create PageViews --partitions 6
-ccloud kafka topic create UserProfiles --partitions 6
-ccloud kafka topic create PageViewsByRegion --partitions 6
+ccloud kafka topic create PageViews --partitions 1
+ccloud kafka topic create UserProfiles --partitions 1
+ccloud kafka topic create PageViewsByRegion --partitions 1
 ```
 
+#### Clean-Up procedure
 ```
+ccloud kafka topic delete PageViews
+ccloud kafka topic delete UserProfiles
+ccloud kafka topic delete PageViewsByRegion
+```
+
 Now, we have to work in three parallel terminal windows:
 ```
-KAFKA_OPTS="" java -cp ./lib/kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionLambdaExample pkc-43n10.us-central1.gcp.confluent.cloud:9092 https://psrc-4v1qj.eu-central-1.aws.confluent.cloud
-KAFKA_OPTS="" java -cp ./lib/kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionExampleDriver pkc-43n10.us-central1.gcp.confluent.cloud:9092 https://psrc-4v1qj.eu-central-1.aws.confluent.cloud
-KAFKA_OPTS="" $CONFLUENT_HOME/bin/kafka-console-consumer --topic PageViewsByRegion --from-beginning --bootstrap-server pkc-43n10.us-central1.gcp.confluent.cloud:9092 --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
+KAFKA_OPTS="" java -cp ./lib/kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionExampleDriver pkc-43n10.us-central1.gcp.confluent.cloud:9092 https://psrc-4v1qj.eu-central-1.aws.confluent.cloud ccloud.props
+KAFKA_OPTS="" java -cp ./lib/kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionLambdaExample pkc-43n10.us-central1.gcp.confluent.cloud:9092 https://psrc-4v1qj.eu-central-1.aws.confluent.cloud ccloud.props
+```
+
+Consuming via `kafka-console-consumer:`
+```
+KAFKA_OPTS="" $CONFLUENT_HOME/bin/kafka-console-consumer --topic PageViewsByRegion --consumer.config ccloud.props --from-beginning --bootstrap-server pkc-43n10.us-central1.gcp.confluent.cloud:9092 --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
 ```
