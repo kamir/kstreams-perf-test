@@ -1,2 +1,3 @@
-/Users/mkampf/GITHUB.confluent/kstreams-perf-test/src/main/java/io/confluent/ByteLevelReverse.java
-/Users/mkampf/GITHUB.confluent/kstreams-perf-test/src/main/java/io/confluent/ReverseString.java
+/Users/mkampf/GITHUB.confluent/kstreams-perf-test/src/main/java/io/confluent/type1/ByteLevelReverse.java
+/Users/mkampf/GITHUB.confluent/kstreams-perf-test/src/main/java/io/confluent/type1/ReverseString.java
+/Users/mkampf/GITHUB.confluent/kstreams-perf-test/src/main/java/io/confluent/type2/SimpleJoinAndRepartition.java

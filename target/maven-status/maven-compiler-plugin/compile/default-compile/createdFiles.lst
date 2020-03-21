@@ -1,4 +1,6 @@
-io/confluent/ByteLevelReverse.class
-io/confluent/ByteLevelReverse$1.class
-io/confluent/ByteLevelReverse$2.class
-io/confluent/ReverseString.class
+io/confluent/type1/ReverseString.class
+io/confluent/type2/SimpleJoinAndRepartition$1.class
+io/confluent/type1/ByteLevelReverse.class
+io/confluent/type1/ByteLevelReverse$1.class
+io/confluent/type2/SimpleJoinAndRepartition.class
+io/confluent/type1/ByteLevelReverse$2.class

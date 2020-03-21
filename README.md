@@ -52,8 +52,7 @@ A workload profile is a structured description of a workload. It provides a set 
 | read throughput <br/>for state  | on restart / failover  |   |
 | write throughput <br/>for state  | on state commit  |   |
 
-## Procedure
-
+# Procedure
 
 ## Quick-Start - using Confluent Platform (locally installed)
 
@@ -183,7 +182,90 @@ Open a new terminal window and start the streaming application.
 docker-compose exec kstreams bash -c 'KAFKA_OPTS="" java -jar kstreams-perf-test-1.0-SNAPSHOT-jar-with-dependencies.jar -it demo-perf-topic -ot demo-perf-topic-REVERSE --bootstrap.servers kafka-1:9092 -cg byte-reverse-app-1'
 ```
 
-## Run a KStreams-Example Applications
+#### Run a KStreams-Example Applications
+The following commands have to be executed in your `docker-compose` project folder from which the Confluent Platform has been started.
+
+The next four commands can be executed in a sequence:
+```
+docker-compose exec kstreams-1 bash -c 'KAFKA_OPTS="" ls'
+docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 1 --replication-factor 1 --topic PageViews --zookeeper zookeeper-1:2181'
+docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 1 --replication-factor 1 --topic UserProfiles --zookeeper zookeeper-1:2181'
+docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 1 --replication-factor 1 --topic PageViewsByRegion --zookeeper zookeeper-1:2181'
+```
+Now, we have to work in three parallel terminal windows:
+```
+docker-compose exec kstreams-1 bash -c 'KAFKA_OPTS="" java -cp ./kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionLambdaExample kafka-1:9092 http://schema-registry:8081'
+docker-compose exec kstreams-1 bash -c 'KAFKA_OPTS="" java -cp ./kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionExampleDriver kafka-1:9092 http://schema-registry:8081'
+docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-console-consumer --topic PageViewsByRegion --from-beginning --bootstrap-server kafka-1:9092 --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer'
+```
+
+## Run a Benchmark using Confluent Cloud
+
+### Prerequisites:
++ Confluent cloud CLI has to be installed. You can download it [here](https://docs.confluent.io/current/cloud/cli/install.html).
+
+#### Create a topic for test data
+Create the `demo-perf-topic` and `demo-perf-topic-REVERSE` with 4 partitions and 3 replicas.
+``` 
+mvn clean compile package install assembly:single
+ccloud login
+ccloud kafka cluster list
+ccloud kafka cluster use <<YOUR_CLUSTER_ID>>
+ccloud kafka topic create demo-perf-topic --partitions 6
+ccloud kafka topic create demo-perf-topic-REVERSE --partitions 6
+```
+
+#### Clean-Up procedure
+```
+ccloud kafka topic delete demo-perf-topic
+ccloud kafka topic delete demo-perf-topic-REVERSE
+```
+
+#### Create a `client.properties` file
+Go to your confluent cloud web interface and copy the client configuration file.
+We need this file locally in our working directory for following steps. 
+
+Please use the filename `ccloud.props` it will be excluded from the GitHub repository. 
+
+```
+# Kafka
+bootstrap.servers=pkc-43n10.us-central1.gcp.confluent.cloud:9092 
+security.protocol=SASL_SSL 
+sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule   required username="{{ CLUSTER_API_KEY }}"   password="{{ CLUSTER_API_SECRET }}"; 
+ssl.endpoint.identification.algorithm=https 
+sasl.mechanism=PLAIN 
+# Confluent Cloud Schema Registry
+schema.registry.url=https://psrc-4v1qj.eu-central-1.aws.confluent.cloud 
+basic.auth.credentials.source=USER_INFO 
+schema.registry.basic.auth.user.info={{ SR_API_KEY }}:{{ SR_API_SECRET }} 
+```
+
+#### Produce random messages into topic _demo-perf-topic_
+Open a new terminal window (in the same folder where the `docker-compose.yml` is located) and generate random messages to simulate producer load.
+
+We use the kafka client tools which are locally installed as part of the Confluent platform.
+We prepare the stage as in step 1 of the quickstart.
+
+```
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home
+export CONFLUENT_HOME=<<<PATH TO YOUR CONFLUENT PLATFORM INSTALLATION>>>/bin/confluent-5.4.0
+```
+We simulate a data ingestion workload using the `kafka-producer-perf-test`. Some other data generators are available, but more on this later.
+
+The sample message producer can be executed with this command:
+```
+$CONFLUENT_HOME/bin/kafka-producer-perf-test --topic demo-perf-topic --num-records 10 --record-size 1024 --throughput -1 --producer.config ccloud.props --producer-props acks=1 buffer.memory=67108864 batch.size=8196
+```
+The KStreams application will be started with the following command:
+```
+KAFKA_OPTS="" java -jar target/kstreams-perf-test-1.0-SNAPSHOT-jar-with-dependencies.jar -it demo-perf-topic -ot demo-perf-topic-REVERSE --producer.config ccloud.props -cg byte-reverse-app-1'
+```
+
+# TODO: 
+
+Next, we want to run the KStreams applications also against out Confluent Cloud cluster.
+
+#### Run a KStreams-Example Applications with Confluent Cloud
 The following commands have to be executed in your `docker-compose` project folder from which the Confluent Platform has been started.
 
 The next four commands can be executed in a sequence:

@@ -21,6 +21,8 @@ import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.*;
 import org.apache.kafka.streams.kstream.KeyValueMapper;
 
+import java.io.File;
+import java.io.FileReader;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 
@@ -60,8 +62,15 @@ public class ByteLevelReverse {
         options.addOption(Option.builder("bss")
                 .longOpt("bootstrap.servers")
                 .hasArg(true)
-                .desc("the Kafka bootstrap.servers ... [REQUIRED]")
-                .required(true)
+                .desc("the Kafka bootstrap.servers ... [OPTIONAL]")
+                .required(false)
+                .build());
+
+        options.addOption(Option.builder("pcf")
+                .longOpt("producer.config")
+                .hasArg(true)
+                .desc("producer.config file ... the configuration to access the Confluent cloud cluster or any other remote cluster [OPTIONAL]")
+                .required(false)
                 .build());
 
 
@@ -73,11 +82,23 @@ public class ByteLevelReverse {
         String ot = null;
         String client_id = "kstreams-perf-test-cg1";
         String bss = "localhost:9092";
+        String fn = null;
 
+        boolean overwriteBSS = false;
 
         try {
 
             cmd = parser.parse(options, args);
+
+            if (cmd.hasOption("pcf")) {
+                overwriteBSS = true;
+                fn = cmd.getOptionValue("pcf");
+                File f = new File( fn );
+                System.out.println("--producer.config option = " + f.getAbsolutePath() + " ("+f.canRead()+")");
+                if ( !f.canRead() ) {
+                    System.exit( -1 );
+                }
+            }
 
             if (cmd.hasOption("it")) {
                 it = cmd.getOptionValue("it");
@@ -109,10 +130,13 @@ public class ByteLevelReverse {
 
 
         Properties props = new Properties();
+        props.load( new FileReader( new File( fn ) ) );
 
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, "streams-byte-reverse");
 
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bss);
+        if ( !overwriteBSS ) {
+            props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bss);
+        }
         props.put(StreamsConfig.CLIENT_ID_CONFIG, client_id);
 
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
