@@ -8,10 +8,10 @@ Performance analysis for KStreamsApplications.
 
 
 
-## Quick-Start - using Confluent Platform locally installed
+## Quick-Start - using Confluent Platform (locally installed)
 
 ### Prerequisites:
-+ Confluent platform is installed
++ Confluent platform is installed. You can download it [here](https://www.confluent.io/download).
 + Docker and Docker compose are installed
 
 ### Step by step approach:
