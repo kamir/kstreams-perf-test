@@ -53,7 +53,7 @@ A workload profile is a structured description of a workload. It provides a set 
 | read throughput <br/>for state  | on restart / failover  |   |
 | write throughput <br/>for state  | on state commit  |   |
 
-## Procedure
+# Procedure
 
 
 ## Quick-Start - using Confluent Platform (locally installed)
