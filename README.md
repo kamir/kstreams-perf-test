@@ -1,21 +1,23 @@
 # kstreams-perf-test
 Performance analysis for KStreamsApplications.
 
-<a href="https://codeclimate.com/github/kamir/kstreams-perf-test"><img src="https://api.codeclimate.com/v1/badges/ef4bcda7d1b5fd0a4f1e/maintainability" /></a>
-
-[![Build Status](https://travis-ci.org/kamir/kstreams-perf-test.svg?branch=master)](https://travis-ci.org/kamir/kstreams-perf-test)
+<a href="https://codeclimate.com/github/kamir/kstreams-perf-test"><img src="https://api.codeclimate.com/v1/badges/ef4bcda7d1b5fd0a4f1e/maintainability" /></a> | [![Build Status](https://travis-ci.org/kamir/kstreams-perf-test.svg?branch=master)](https://travis-ci.org/kamir/kstreams-perf-test)
 
 ## Why does this project exist?
 Many tutorials and example projects support you learning to write KStreams applications.
-Monitoring Kafka is also a very present topic at many conferences.
+Monitoring Kafka is a critical skill and also a very present topic at many conferences.
 
-Assuming we are able to develop applications and to monitor clusters, we can go further and ask:
+Assuming we are able to develop KStreams applications, and assuming we ar able to monitor the clusters in which they run, than
+we can go further and start asking:
+
 + What do we know about the behavior of a particular workload in a particular environment?
 + How well does a workload fit into an environment? 
 + What are the limits of a workload? When will it fail due resource limits?
 + What is the optimization potential for a workload in a given cluster?
 
-This projects provides example programs, reference workloads and an analysis procedure which can be used together to answer the questions above. 
+This projects provides example programs, reference workloads, and an analysis procedure. 
+These tools can be used together to answer the questions above. 
+
 ![The KStreamsApplication Flow Model](docs/intro.png)
 
 
