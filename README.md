@@ -353,8 +353,8 @@ A systematic performance analysis of your application can be done.
 
 This project provides some tools to support your performance analysis and research.
 
-+ Create a cluster profile with our (cluster-profiler spread-sheet)[tools/workbook_010_cluster.xlsx]
-+ Create a workload profile with our (workload-profiler spread-sheet)[tools/workbook_020_kstreams_application.xlsx]
++ Create a cluster profile with our [cluster-profiler spread-sheet](tools/workbook_010_cluster.xlsx)
++ Create a workload profile with our [workload-profiler spread-sheet](tools/workbook_020_kstreams_application.xlsx)
 + Work on optimizations: 
 ++ tune cluster settings 
 ++ tune application configuration settings
