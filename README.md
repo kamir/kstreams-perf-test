@@ -376,10 +376,28 @@ It will also give you the right information for good cross-team communication.
 <a name="toolbox">
 
 ## Gadgets for your Tuning Toolbox
+In this section you will find some practical gadgets for a systematic performance inspection.
 
 ### DataOps Canvas
+The DataOps canvas is typically printed in format A3 or A2. 
+We use it as a poster and as asynchronous communication tool. 
+People can easily get information out of it. 
+They can stay around it and discuss ideas. 
+Adding a sticky note to it works for everybode, even if somebody is in a hurry and opening a ticket is no option.
+The poster should always reflect the latest status.
+Maintaining this kind of document is so easy!  
 
 ![DataOps Canvas](tools/data-ops-canvas-TEMPLATE-v3.png)
+
+Furthermore, it helps the architect who as to switch between and oversee many different projects. 
+The data added or updated on the canvas should be merged into the digital document at the end of every sprint.
+The old version can easily be archived. This allows us to reuse it later on for analysis of the progress. "  
+
+A `What if? - analysis` can easily be conducted as ad-hoc workshop. 
+
+Since the canvas provides contact details of all relevant people all information to kick-off the meeting should be on the poster. 
+You can take it with you, it provides some structure, so that people can focus on establishing a creative process their team!
+
 
 ### Profiling Spread-sheets
 
