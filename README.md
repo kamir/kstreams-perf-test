@@ -400,7 +400,9 @@ You can take it with you, it provides some structure, so that people can focus o
 
 
 ### Profiling Spread-sheets
+The profiling spread-sheets are templates to get you started. Feel free to add more details and custom specific aspects.
+We would be happy if we could add your improved spreadsheets to our project.
 
-[cluster-profiler spread-sheet](tools/workbook_010_cluster.xlsx)
++ [cluster-profiling spread-sheet](tools/workbook_010_cluster.xlsx)
 
-[workload-profiler spread-sheet](tools/workbook_020_kstreams_application.xlsx)
++ [workload-profiling spread-sheet](tools/workbook_020_kstreams_application.xlsx)
