@@ -34,6 +34,15 @@ Table of Contents
 * [Concepts](#Concepts)
     * [Cluster Profile](#Cluster-Profile)
     * [Workload Profile](#Workload-Profile)
+* [Example Workloads](#Procedure)
+    * [Quick-Start: Confluent-Platform](#Quick-Start-using-Confluent-Platform)
+    * [Test-Setup: Multi node cluster with Monitoring](#Test-Setup)
+    * [Application Benchmark with Confluent Cloud](#CCloud)
+
+
+
+    
+    
  ---
 
 <a name="Concepts"/>
@@ -67,7 +76,11 @@ A workload profile is a structured description of a workload. It provides a set 
 | read throughput <br/>for state  | on restart / failover  |   |
 | write throughput <br/>for state  | on state commit  |   |
 
-# Procedure
+<a name="Procedure"/>
+
+# How to run example workloads?
+
+<a name="#Quick-Start-using-Confluent-Platform"/>
 
 ## Quick-Start - using Confluent Platform (locally installed)
 
@@ -115,7 +128,9 @@ $CONFLUENT_HOME/bin/kafka-topics --delete --topic t1 --bootstrap-server=127.0.0.
 $CONFLUENT_HOME/bin/kafka-topics --delete --topic t1REV --bootstrap-server=127.0.0.1:9092
 ```
 
-## Prepare Test-Setup with a multi node cluster
+<a name="#Test-Setup"/>
+
+## Test-Setup: Multi node cluster with Monitoring
 
 The project `https://github.com/jeanlouisboudart/kafka-platform-prometheus` contains a ready to use confluent platform
 including Prometheus and Grafana for monitoring and metrics visualization.
@@ -213,6 +228,8 @@ docker-compose exec kstreams-1 bash -c 'KAFKA_OPTS="" java -cp ./kafka-streams-e
 docker-compose exec kstreams-1 bash -c 'KAFKA_OPTS="" java -cp ./kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionExampleDriver kafka-1:9092 http://schema-registry:8081'
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-console-consumer --topic PageViewsByRegion --from-beginning --bootstrap-server kafka-1:9092 --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer'
 ```
+
+<a href="#CCloud"/>
 
 ## Run a Benchmark using Confluent Cloud
 
