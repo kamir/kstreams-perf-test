@@ -392,11 +392,18 @@ You can download the **DataOps canvas** [here](tools/data-ops-canvas-TEMPLATE-v3
 
 ![DataOps Canvas](tools/data-ops-canvas-TEMPLATE-v3.png)
 
-Furthermore, it helps the architect who as to switch between and oversee many different projects. 
-The data added or updated on the canvas should be merged into the digital document at the end of every sprint.
-The old version can easily be archived. This allows us to reuse it later on for analysis of the progress. "  
+Furthermore, the DataOps canvas helps the stressed architect who has to switch between and oversee many different projects to get to the point faster.
+No request for status reports are needed, due to thee asynchronous communication model the canvas enforces.
+ 
+All the data added or updated on the canvas should be merged into the digital counterpart at the end of every sprint.
+The old paper-version can easily be archived. This allows you to reuse it later on for analysis of the progress, especially because you can use it for
+quick pairwise comparison. 
 
-A `What if? - analysis` can easily be conducted as ad-hoc workshop. 
+```  
+Thanks to this approach, no additional load will be put on your team member's plate! 
+```
+
+A **What if? - analysis** can easily be conducted as ad-hoc workshop. 
 
 Since the canvas provides contact details of all relevant people all information to kick-off the meeting should be on the poster. 
 You can take it with you, it provides some structure, so that people can focus on establishing a creative process their team!
