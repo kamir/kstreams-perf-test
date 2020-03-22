@@ -18,6 +18,8 @@ Simplify performance analysis for KStreamsApplications.
         * [kafka-streams-example](#CCloud-kse)
 * [Summary](#Summary)
 * [Wher to go from here?](#Next)
+* [Gadgets for your Tuning Toolbox](#toolbox)
+
         
 -----
 
@@ -366,7 +368,9 @@ Please have in mind, individual optimization targets for a particular applicatio
 The approach which will be developed by this project helps you to identify such aspects. 
 It will also give you the right information for good cross-team communication.  
 
-## Tuning Toolbox
+<a name="toolbox">
+
+## Gadgets for your Tuning Toolbox
 
 ### DataOps Canvas
 
