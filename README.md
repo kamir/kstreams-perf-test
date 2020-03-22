@@ -233,7 +233,7 @@ docker-compose exec kstreams-1 bash -c 'KAFKA_OPTS="" java -cp ./kafka-streams-e
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-console-consumer --topic PageViewsByRegion --from-beginning --bootstrap-server kafka-1:9092 --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer'
 ```
 
-<a href="CCloud"/>
+<a name="CCloud"/>
 
 ## Run a Benchmark using Confluent Cloud
 
