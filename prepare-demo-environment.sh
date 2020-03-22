@@ -11,9 +11,9 @@ echo $WORKDIR
 #
 # Clone the two projects this work depends on
 #
-cd ..
-git clone https://github.com/semanpix/kafka-streams-examples
-git clone https://github.com/jeanlouisboudart/kafka-platform-prometheus
+##cd ..
+##git clone https://github.com/semanpix/kafka-streams-examples
+##git clone https://github.com/jeanlouisboudart/kafka-platform-prometheus
 
 #############################################################################
 #
