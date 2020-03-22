@@ -68,8 +68,8 @@ cd $KAFKA_PROMETHEUS_PROJECT_PATH
 docker-compose up -d
 
 echo
-echo #####################################
-echo # Environment is READY for the next #
-echo # round of experiments              #
-echo #####################################
+echo '#####################################'
+echo '# Environment is READY for the next #'
+echo '# round of experiments              #'
+echo '#####################################'
 echo
