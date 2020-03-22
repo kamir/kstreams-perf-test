@@ -63,7 +63,7 @@ Only in cases where your cluster is used for one single use case, which is imple
 
 The majority of installations is either created for mixed workloads or as multi-tennant environments. In this case, we have to look into cluster profile and workload profiles on an individual level.
 
-This [worksheet](tools/workbook_010.xlsx) allows tracking of cluster wide settings over time.
+This [worksheet](tools/workbook_010_cluster.xlsx) allows tracking of cluster wide settings over time.
 
 <a name="Workload-Profile"/>
 
