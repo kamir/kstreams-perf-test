@@ -3,6 +3,23 @@ Simplify performance analysis for KStreamsApplications.
 
 <a href="https://codeclimate.com/github/kamir/kstreams-perf-test"><img src="https://api.codeclimate.com/v1/badges/ef4bcda7d1b5fd0a4f1e/maintainability" /></a>  [![Build Status](https://travis-ci.org/kamir/kstreams-perf-test.svg?branch=master)](https://travis-ci.org/kamir/kstreams-perf-test)
 
+-----
+---
+##Table of Contents
+
+* [Concepts](#Concepts)
+    * [Cluster Profile](#Cluster-Profile)
+    * [Workload Profile](#Workload-Profile)
+* [Example Workloads](#Procedure)
+    * [Quick-Start: Confluent-Platform](#Quick-Start-using-Confluent-Platform)
+    * [Test-Setup: Multi node cluster with Monitoring](#Test-Setup)
+    * [Application Benchmark with Confluent Cloud](#CCloud)
+
+
+
+    
+-----
+
 ## Why does this project exist?
 To make sure that your KStreams applications perform well, you need a way to measure how well they really do.
 
@@ -28,22 +45,7 @@ This projects provides example programs, reference workloads, and a systematic a
 We define workload types and workload profiles to describe the conditions of a particular KStreams program.
 These tools can be used together to answer the questions above.
 
----
-Table of Contents
-
-* [Concepts](#Concepts)
-    * [Cluster Profile](#Cluster-Profile)
-    * [Workload Profile](#Workload-Profile)
-* [Example Workloads](#Procedure)
-    * [Quick-Start: Confluent-Platform](#Quick-Start-using-Confluent-Platform)
-    * [Test-Setup: Multi node cluster with Monitoring](#Test-Setup)
-    * [Application Benchmark with Confluent Cloud](#CCloud)
-
-
-
-    
-    
- ---
+-------
 
 <a name="Concepts"/>
 
