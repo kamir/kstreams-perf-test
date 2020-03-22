@@ -337,3 +337,25 @@ ccloud kafka topic delete UserProfiles
 ccloud kafka topic delete PageViewsByRegion
 ```
 
+# Summary 
+
+This project helps you to prepare a test setup which includes:
++ Confluent platform CLI
++ a Confluent cluster (localy, using docker-compose, using Confluent cloud)
++ metrics exporter and Grafana dashboards
++ example workloads from kafka-streams-example project
++ a set of reference workloads (part of this project).
+
+
+# Where to go from here?
+
+A systematic performance analysis of your application can be done.
+
+This project provides some tools to support your performance analysis and research.
+
++ Create a cluster profile with our (cluster-profiler spread-sheet)[tools/workbook_010_cluster.xlsx]
++ Create a workload profile with our (workload-profiler spread-sheet)[tools/workbook_020_kstreams_application.xlsx]
++ Work on optimizations: 
+++ tune cluster settings 
+++ tune application configuration settings
+ 
