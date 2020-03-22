@@ -84,7 +84,7 @@ A workload profile is a structured description of a workload. It provides a set 
 
 # How To Run Example Workloads?
 
-<a name="#Quick-Start-using-Confluent-Platform"/>
+<a name="Quick-Start-using-Confluent-Platform"/>
 
 ## Quick-Start - Using Confluent Platform (locally installed)
 
