@@ -356,6 +356,12 @@ This project provides some tools to support your performance analysis and resear
 + Create a cluster profile with our [cluster-profiler spread-sheet](tools/workbook_010_cluster.xlsx)
 + Create a workload profile with our [workload-profiler spread-sheet](tools/workbook_020_kstreams_application.xlsx)
 + Work on optimizations: 
-++ tune cluster settings 
-++ tune application configuration settings
+  + tune cluster settings 
+  + tune application configuration settings
+  
+Please have in mind, individual optimization targets for a particular application can contradict with the platform optimization target.
  
+The approach which will be developed by this project helps you to identify such aspects. 
+It will also give you the right information for good cross-team communication.  
+
+
