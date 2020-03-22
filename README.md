@@ -14,6 +14,8 @@ Simplify performance analysis for KStreamsApplications.
     * [Quick-Start: Confluent-Platform](#Quick-Start-using-Confluent-Platform)
     * [Test-Setup: Multi node cluster with Monitoring](#Test-Setup)
     * [Application Benchmark with Confluent Cloud](#CCloud)
+        * [kafka-perf-test & kafka-console-cosumer](#CCloud-simple)
+        * [kafka-streams-example](#CCloud-kse)
 
 
 
@@ -80,11 +82,11 @@ A workload profile is a structured description of a workload. It provides a set 
 
 <a name="Procedure"/>
 
-# How to run example workloads?
+# How To Run Example Workloads?
 
 <a name="#Quick-Start-using-Confluent-Platform"/>
 
-## Quick-Start - using Confluent Platform (locally installed)
+## Quick-Start - Using Confluent Platform (locally installed)
 
 ### Prerequisites:
 + Confluent platform is installed. You can download it [here](https://www.confluent.io/download).
@@ -97,7 +99,7 @@ If not done yet, please define `JAVA_HOME` and `CONFLUENT_HOME` environment vari
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home
 export CONFLUENT_HOME=<<<PATH TO YOUR CONFLUENT PLATFORM INSTALLATION>>>/bin/confluent-5.4.0
 ```
-### Step by step approach:
+### Step by Step Approach:
 We simulate a data ingestion workload using the `kafka-producer-perf-test`. Some other data generators are available, but more on this later.
 
 + start the `kafka-producer-perf-test` to generate some test data into topic *t1*.
@@ -123,7 +125,7 @@ mvn clean compile exec:java -Dexec.args="-it t1 -ot t1REV --bootstrap.servers lo
 This will execute a workload of type 1 (Simple Stream-mapping application) to transform the generated data from topic *t1*.
 Results will be available in topic *t1REV*.
 
-### Clean-Up procedure
+### Clean-Up Procedure
 
 ```
 $CONFLUENT_HOME/bin/kafka-topics --delete --topic t1 --bootstrap-server=127.0.0.1:9092
@@ -132,7 +134,7 @@ $CONFLUENT_HOME/bin/kafka-topics --delete --topic t1REV --bootstrap-server=127.0
 
 <a name="#Test-Setup"/>
 
-## Test-Setup: Multi node cluster with Monitoring
+## Test-Setup: Multi node Cluster with Monitoring
 
 The project `https://github.com/jeanlouisboudart/kafka-platform-prometheus` contains a ready to use confluent platform
 including Prometheus and Grafana for monitoring and metrics visualization.
@@ -141,7 +143,7 @@ Please follow the guide in this project to prepare your setup, in case you want 
 
 In order to integrate the KStreams performance test app, we have to modify the docker-compose file.
 
-### Prepare a demo workload container
+### Prepare a Demo Workload Container
 
 First, build the `kstreams-perf-test` project locally and create the docker image using the commands:
 ```
@@ -195,20 +197,20 @@ With 'docker-compose' we can start the Confluent platform with 3 brokers. The co
 
 ### Run a Benchmark in the Test-Cluster using Docker-Compose
 
-#### Create a topic for test data
+#### Create a Topic for Test Data
 Create the `demo-perf-topic` and `demo-perf-topic-REVERSE` with 4 partitions and 3 replicas.
 ```
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 4 --replication-factor 3 --topic demo-perf-topic --zookeeper zookeeper-1:2181'
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-topics --create --partitions 4 --replication-factor 3 --topic demo-perf-topic-REVERSE --zookeeper zookeeper-1:2181'
 ```
 
-#### Produce random messages into topic _demo-perf-topic_
+#### Produce Random Messages Into Topic _demo-perf-topic_
 Open a new terminal window (in the same folder where the `docker-compose.yml` is located) and generate random messages to simulate producer load.
 ```
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-producer-perf-test --throughput -1 --num-records 10000000 --topic demo-perf-topic --record-size 160 --producer-props acks=1 buffer.memory=67108864 batch.size=8196 bootstrap.servers=kafka-1:9092'
 ```
 
-#### Process random messages using a KStreams-Application
+#### Process Random Messages Using a KStreams-Application
 Open a new terminal window and start the streaming application.
 ```
 docker-compose exec kstreams bash -c 'KAFKA_OPTS="" java -jar kstreams-perf-test-1.0-SNAPSHOT-jar-with-dependencies.jar -it demo-perf-topic -ot demo-perf-topic-REVERSE --bootstrap.servers kafka-1:9092 -cg byte-reverse-app-1'
@@ -243,7 +245,7 @@ docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-console-consumer --topi
 mvn clean compile package install assembly:single
 ```
 
-#### Create a topic for test data
+#### Create a Topic for Test Data
 We create the `demo-perf-topic` and `demo-perf-topic-REVERSE` with 6 partitions.
 ```
 ccloud login
@@ -255,13 +257,13 @@ ccloud kafka topic create demo-perf-topic --partitions 6
 ccloud kafka topic create demo-perf-topic-REVERSE --partitions 6
 ```
 
-#### Clean-Up procedure
+#### Clean-Up Procedure
 ```
 ccloud kafka topic delete demo-perf-topic
 ccloud kafka topic delete demo-perf-topic-REVERSE
 ```
 
-#### Create a `client.properties` file
+#### Prepare Client Access: Create a `client.properties` File
 Go to your confluent cloud web interface and copy the client configuration file.
 We need this file locally in our working directory for the following steps.
 
@@ -280,7 +282,9 @@ basic.auth.credentials.source=USER_INFO
 schema.registry.basic.auth.user.info={{ SR_API_KEY }}:{{ SR_API_SECRET }}
 ```
 
-#### Produce random messages into topic _demo-perf-topic_
+<a href="CCloud-simple"/>
+
+#### Produce Random Messages Into Topic _demo-perf-topic_
 Open a new terminal window (in the same folder where the `docker-compose.yml` is located) and generate random messages to simulate producer load.
 
 We use the kafka client tools which are locally installed as part of the Confluent platform.
@@ -301,7 +305,9 @@ The KStreams application will be started with the following command:
 KAFKA_OPTS="" java -jar target/kstreams-perf-test-1.0-SNAPSHOT-jar-with-dependencies.jar -it demo-perf-topic -ot demo-perf-topic-REVERSE --producer.config ccloud.props -cg byte-reverse-app-1'
 ```
 
-# TODO:
+<a href="#CCloud-kse"/>
+
+### How To Run a kafka-streams-example as Reference Rorkload?
 
 Next, we want to run the KStreams applications also against out Confluent Cloud cluster.
 
@@ -324,7 +330,7 @@ Consuming the results is also possible via `kafka-console-consumer:`, please rem
 KAFKA_OPTS="" $CONFLUENT_HOME/bin/kafka-console-consumer --topic PageViewsByRegion --consumer.config ccloud.props --from-beginning --bootstrap-server pkc-43n10.us-central1.gcp.confluent.cloud:9092 --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
 ```
 
-#### Clean-Up procedure
+#### Clean-Up Procedure
 ```
 ccloud kafka topic delete PageViews
 ccloud kafka topic delete UserProfiles
