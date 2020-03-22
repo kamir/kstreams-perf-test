@@ -16,10 +16,9 @@ Simplify performance analysis for KStreamsApplications.
     * [Application Benchmark with Confluent Cloud](#CCloud)
         * [kafka-perf-test & kafka-console-cosumer](#CCloud-simple)
         * [kafka-streams-example](#CCloud-kse)
-
-
-
-    
+* [Summary](#Summary)
+* [Wher to go from here?](#Next)
+        
 -----
 
 ## Why does this project exist?
@@ -336,6 +335,7 @@ ccloud kafka topic delete PageViews
 ccloud kafka topic delete UserProfiles
 ccloud kafka topic delete PageViewsByRegion
 ```
+<a name="Summary">
 
 # Summary 
 
@@ -346,6 +346,7 @@ This project helps you to prepare a test setup which includes:
 + example workloads from kafka-streams-example project
 + a set of reference workloads (part of this project).
 
+<a name="Next">
 
 # Where to go from here?
 
