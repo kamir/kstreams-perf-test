@@ -132,7 +132,7 @@ $CONFLUENT_HOME/bin/kafka-topics --delete --topic t1 --bootstrap-server=127.0.0.
 $CONFLUENT_HOME/bin/kafka-topics --delete --topic t1REV --bootstrap-server=127.0.0.1:9092
 ```
 
-<a name="#Test-Setup"/>
+<a name="Test-Setup"/>
 
 ## Test-Setup: Multi node Cluster with Monitoring
 
@@ -233,7 +233,7 @@ docker-compose exec kstreams-1 bash -c 'KAFKA_OPTS="" java -cp ./kafka-streams-e
 docker-compose exec kafka-1 bash -c 'KAFKA_OPTS="" kafka-console-consumer --topic PageViewsByRegion --from-beginning --bootstrap-server kafka-1:9092 --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer'
 ```
 
-<a href="#CCloud"/>
+<a href="CCloud"/>
 
 ## Run a Benchmark using Confluent Cloud
 
@@ -305,9 +305,9 @@ The KStreams application will be started with the following command:
 KAFKA_OPTS="" java -jar target/kstreams-perf-test-1.0-SNAPSHOT-jar-with-dependencies.jar -it demo-perf-topic -ot demo-perf-topic-REVERSE --producer.config ccloud.props -cg byte-reverse-app-1'
 ```
 
-<a name="#CCloud-kse"/>
+<a name="CCloud-kse"/>
 
-### How To Run a kafka-streams-example as Reference Rorkload?
+### How To Run a kafka-streams-example as Reference Workload?
 
 Next, we want to run the KStreams applications also against out Confluent Cloud cluster.
 
