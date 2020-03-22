@@ -341,7 +341,7 @@ ccloud kafka topic delete PageViewsByRegion
 
 # Summary 
 
-This project helps you to prepare a test setup which includes:
+This project helps you to prepare a test  for KStreams applications which includes:
 + Confluent platform CLI
 + a Confluent cluster (localy, using docker-compose, using Confluent cloud)
 + metrics exporter and Grafana dashboards
@@ -352,10 +352,11 @@ This project helps you to prepare a test setup which includes:
 
 # Where to go from here?
 
-A systematic performance analysis of your application can be done.
+Based on the test setup and the reference workloads we can now start a systematic performance analysis of streaming applications.
 
-This project provides some tools to support your performance analysis and research.
+In addition to the programs used as reference workloads, this project also provides some useful gadgets to support your personal performance analysis and research.
 
+## Typical activities of a performance analysis:
 + Create a cluster profile with our [cluster-profiler spread-sheet](tools/workbook_010_cluster.xlsx)
 + Create a workload profile with our [workload-profiler spread-sheet](tools/workbook_020_kstreams_application.xlsx)
 + Collect background information about the operations context with our [DataOps canvas](tools/data-ops-canvas-TEMPLATE-v3.png)
@@ -363,7 +364,7 @@ This project provides some tools to support your performance analysis and resear
   + tune cluster settings 
   + tune application configuration settings
   
-Please have in mind, individual optimization targets for a particular application can contradict with the platform optimization target.
+**Please have in mind** that individual optimization targets for a particular application can contradict with the platform optimization target.
  
 The approach which will be developed by this project helps you to identify such aspects. 
 It will also give you the right information for good cross-team communication.  
