@@ -284,7 +284,7 @@ schema.registry.basic.auth.user.info={{ SR_API_KEY }}:{{ SR_API_SECRET }}
 replication.factor=3
 ```
 
-**Hint:** The setting`replication.factor=3` is important for your KStreams applications you want to run against the Confluent cloud.
+**Hint:** The setting `replication.factor=3` is important for your KStreams applications you want to run against the Confluent cloud.
 Without this setting the program might not be able to create the intermediate topic used by the KStreams repartition operations and by state stores. 
   
 <a name="CCloud-simple"/>
