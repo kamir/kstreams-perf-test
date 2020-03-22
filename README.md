@@ -230,6 +230,8 @@ We create the `demo-perf-topic` and `demo-perf-topic-REVERSE` with 6 partitions.
 ccloud login
 ccloud kafka cluster list
 ccloud kafka cluster use <<YOUR_CLUSTER_ID>>
+ccloud api-key list
+ccloud api-key use <<API-KEY>> --resource <<YOUR_CLUSTER_ID>>
 ccloud kafka topic create demo-perf-topic --partitions 6
 ccloud kafka topic create demo-perf-topic-REVERSE --partitions 6
 ```
@@ -292,13 +294,13 @@ ccloud kafka topic create UserProfiles --partitions 1
 ccloud kafka topic create PageViewsByRegion --partitions 1
 ```
 
-Er run the two programs in parallel terminal windows:
+We run the two programs in parallel terminal windows:
 ```
-KAFKA_OPTS="" java -cp ./lib/kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionExampleDriver pkc-43n10.us-central1.gcp.confluent.cloud:9092 https://psrc-4v1qj.eu-central-1.aws.confluent.cloud ccloud.props
-KAFKA_OPTS="" java -cp ./lib/kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionLambdaExample pkc-43n10.us-central1.gcp.confluent.cloud:9092 https://psrc-4v1qj.eu-central-1.aws.confluent.cloud ccloud.props
+KAFKA_OPTS="" java -cp ./lib/kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionExampleDriver - - ccloud.props
+KAFKA_OPTS="" java -cp ./lib/kafka-streams-examples-5.4.1-standalone.jar io.confluent.examples.streams.PageViewRegionLambdaExample - - ccloud.props
 ```
 
-Consuming via `kafka-console-consumer:`, please remember to make sure that the environment `CONFLUENT_HOME` and `JAVA_HOME` variables are defined.
+Consuming the results is also possible via `kafka-console-consumer:`, please remember to make sure that the environment `CONFLUENT_HOME` and `JAVA_HOME` variables are defined for your system.
 ```
 KAFKA_OPTS="" $CONFLUENT_HOME/bin/kafka-console-consumer --topic PageViewsByRegion --consumer.config ccloud.props --from-beginning --bootstrap-server pkc-43n10.us-central1.gcp.confluent.cloud:9092 --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
 ```
@@ -309,3 +311,4 @@ ccloud kafka topic delete PageViews
 ccloud kafka topic delete UserProfiles
 ccloud kafka topic delete PageViewsByRegion
 ```
+
