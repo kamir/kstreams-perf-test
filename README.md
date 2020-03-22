@@ -4,8 +4,8 @@ Simplify performance analysis for KStreamsApplications.
 <a href="https://codeclimate.com/github/kamir/kstreams-perf-test"><img src="https://api.codeclimate.com/v1/badges/ef4bcda7d1b5fd0a4f1e/maintainability" /></a>  [![Build Status](https://travis-ci.org/kamir/kstreams-perf-test.svg?branch=master)](https://travis-ci.org/kamir/kstreams-perf-test)
 
 -----
----
-##Table of Contents
+
+## Table of Contents
 
 * [Concepts](#Concepts)
     * [Cluster Profile](#Cluster-Profile)
