@@ -386,10 +386,10 @@ They can stay around it and discuss ideas.
 Adding a sticky note to it works for everybode, even if somebody is in a hurry and opening a ticket is no option.
 The poster should always reflect the latest status.
 Maintaining this kind of document is so easy!  
+-----
+You can download the **DataOps canvas** [here](tools/data-ops-canvas-TEMPLATE-v3.png).
 
 ![DataOps Canvas](tools/data-ops-canvas-TEMPLATE-v3.png)
-
-Download the DataOps canvas [here](tools/data-ops-canvas-TEMPLATE-v3.png).
 
 Furthermore, it helps the architect who as to switch between and oversee many different projects. 
 The data added or updated on the canvas should be merged into the digital document at the end of every sprint.
