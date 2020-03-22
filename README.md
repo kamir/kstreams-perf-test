@@ -282,7 +282,7 @@ basic.auth.credentials.source=USER_INFO
 schema.registry.basic.auth.user.info={{ SR_API_KEY }}:{{ SR_API_SECRET }}
 ```
 
-<a href="CCloud-simple"/>
+<a name="CCloud-simple"/>
 
 #### Produce Random Messages Into Topic _demo-perf-topic_
 Open a new terminal window (in the same folder where the `docker-compose.yml` is located) and generate random messages to simulate producer load.
@@ -305,7 +305,7 @@ The KStreams application will be started with the following command:
 KAFKA_OPTS="" java -jar target/kstreams-perf-test-1.0-SNAPSHOT-jar-with-dependencies.jar -it demo-perf-topic -ot demo-perf-topic-REVERSE --producer.config ccloud.props -cg byte-reverse-app-1'
 ```
 
-<a href="#CCloud-kse"/>
+<a name="#CCloud-kse"/>
 
 ### How To Run a kafka-streams-example as Reference Rorkload?
 
