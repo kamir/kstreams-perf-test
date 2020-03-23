@@ -91,6 +91,13 @@ We look into workload modeling as well. Hence we work on an analytical workload 
 | read throughput <br/>for state  | on restart / failover  |   |
 | write throughput <br/>for state  | on state commit  |   |
 
+### Why not just using Kafka-streams-examples?
+Kafka-streams-examples provide example programs to show developers how individual features can or should be used.
+They are typically not inteded to be used for stress testing or performance analysis.
+But nethertheless, the example programs are a great source of inspiration. 
+
+We bundle the kafka-streams-examples in this toolbox so that functional tests can be done as well.
+
 <a name="Procedure"/>
 
 # How To Run Example Workloads?
