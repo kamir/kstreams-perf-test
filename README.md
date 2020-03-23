@@ -70,6 +70,16 @@ This [worksheet](tools/workbook_010_cluster.xlsx) allows tracking of cluster wid
 ### Workload Profile
 A workload profile is a structured description of a workload. It provides a set of measures, such as required read bandwidth, memory footprint, write bandwidth for results and intermediate data. Also rather static resources, such as CPU and RAM are relevant for workload profiles - because workload scheduling and workload placement decisions depend on them.
 
+#### Workload Types
+Based on our knowledge about a particular topology we define the following types as a base:
++ *Type 1:* Simple Stream-mapping application	
++ *Type 2:* Stream-Join applications	
++ *Type 3:* Stream-aggregation with state	
+
+Real world workloads may consist of combinations of the above base types.
+The workload analysis framework uses performance profiles of known worloads for comparison. 
+We look into workload modeling as well. Hence we work on an analytical workload model.
+
 **Workload Profile for KStreams Application:**  *ByteLevelReverse* (type 1)
 
 | Property  | Purpose  | Value  |
