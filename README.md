@@ -3,8 +3,8 @@ Simplify performance analysis for KStreamsApplications.
 
 <a href="https://codeclimate.com/github/kamir/kstreams-perf-test"><img src="https://api.codeclimate.com/v1/badges/ef4bcda7d1b5fd0a4f1e/maintainability" /></a>  [![Build Status](https://travis-ci.org/kamir/kstreams-perf-test.svg?branch=master)](https://travis-ci.org/kamir/kstreams-perf-test)
 
-- The **kstreams-perf-test** project provides reference workloads for performance analysis. 
-- We collect useful tools to support your personal research and to make results comparable.
+- The **kstreams-perf-test** project provides reference workloads for Kafka Streaming performance analysis. 
+- We collect useful tools to support your experiments and to make results comparable.
 - We help you to understand your workloads and your environment better!
 
 -----
