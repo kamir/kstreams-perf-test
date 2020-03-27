@@ -403,9 +403,19 @@ In this section you will find some practical gadgets for a systematic performanc
 -----
 
 ## Table of Contents
-* [Use-Case centric cross-team collaboration](#DataOps-Canvas)
 * [Profiling Spread-Sheets](#Profiling-Spreadsheets)
+* [Use-Case centric cross-team collaboration](#DataOps-Canvas)
 
+
+<a name="Profiling-Spread-sheets">
+
+### Profiling Spreadsheets
+The profiling spread-sheets are templates to get you started. Feel free to add more details and custom specific aspects.
+We would be happy if we could add your improved spreadsheets to our project.
+
+* [How to use the cluster-profiling spread-sheet?](tools/load_profiles_v1/Cluster-Workload-Profiling-v1.pdf)
+   *  [cluster-profiling spreadsheet](tools/workbook_010_cluster.xlsx)
+   *  [workload-profiling spreadsheet](tools/workbook_020_kstreams_application.xlsx)
 <a name="DataOps-Canvas">
    
 ### DataOps Canvas
@@ -438,12 +448,3 @@ A **What if? - analysis** can easily be conducted as ad-hoc workshop.
 Since the canvas provides contact details of all relevant people all information to kick-off the meeting should be on the poster. 
 You can take it with you, it provides some structure, so that people can focus on establishing a creative process their team!
 
-<a name="Profiling-Spread-sheets">
-
-### Profiling Spreadsheets
-The profiling spread-sheets are templates to get you started. Feel free to add more details and custom specific aspects.
-We would be happy if we could add your improved spreadsheets to our project.
-
-* [How to use the cluster-profiling spread-sheet?](tools/load_profiles_v1/Cluster-Workload-Profiling-v1.pdf)
-   *  [cluster-profiling spreadsheet](tools/workbook_010_cluster.xlsx)
-   *  [workload-profiling spreadsheet](tools/workbook_020_kstreams_application.xlsx)
