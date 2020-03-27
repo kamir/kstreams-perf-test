@@ -396,7 +396,7 @@ It will also give you the right information for good cross-team communication.
 
 <a name="toolbox">
 
-## Gadgets for your Tuning Toolbox
+# Gadgets for your Tuning Toolbox
 In this section you will find some practical gadgets for a systematic performance inspection.
 -----
 
@@ -404,8 +404,8 @@ In this section you will find some practical gadgets for a systematic performanc
 * [Use-Case centric cross-team collaboration](#DataOps-Canvas)
 * [Profiling Spread-Sheets](#Profiling-Spreadsheets)
 
-
 <a name="DataOps-Canvas">
+   
 ### DataOps Canvas
 The DataOps canvas is typically printed in format A3 or A2. 
 We use it as a poster and as asynchronous communication tool. 
@@ -435,6 +435,7 @@ A **What if? - analysis** can easily be conducted as ad-hoc workshop.
 
 Since the canvas provides contact details of all relevant people all information to kick-off the meeting should be on the poster. 
 You can take it with you, it provides some structure, so that people can focus on establishing a creative process their team!
+
 <a name="Profiling-Spread-sheets">
 
 ### Profiling Spreadsheets
