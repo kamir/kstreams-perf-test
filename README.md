@@ -436,6 +436,6 @@ We would be happy if we could add your improved spreadsheets to our project.
 
 + [How to use the cluster-profiling spread-sheet?](tools/load_profiles_v1/Cluster-Workload-Profilin-v1.pdf)
 
-+ [cluster-profiling spread-sheet](tools/workbook_010_cluster.xlsx)
+++ [cluster-profiling spread-sheet](tools/workbook_010_cluster.xlsx)
 
-+ [workload-profiling spread-sheet](tools/workbook_020_kstreams_application.xlsx)
+++ [workload-profiling spread-sheet](tools/workbook_020_kstreams_application.xlsx)
