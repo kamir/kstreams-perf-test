@@ -397,7 +397,9 @@ It will also give you the right information for good cross-team communication.
 <a name="toolbox">
 
 # Gadgets for your Tuning Toolbox
+
 In this section you will find some practical gadgets for a systematic performance inspection.
+
 -----
 
 ## Table of Contents
